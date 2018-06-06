@@ -81,18 +81,18 @@
 
 
 
-<meta name="description" content="title: tagsdate: 2018-01-20 18:57:48type: “tags” 内存管理引用计数内存管理的思考方式 自己生成的对象，自己所持有 非自己生成的对象，自己也能持有 不再需要自己持有的对象时释放 非自己持有的对象无法释放  自己生成的对象，自己所持有id obj = [[NSObject alloc] init]; 使用NSObject类的alloc类方法就能自己生成并">
+<meta name="description" content="内存管理引用计数内存管理的思考方式 自己生成的对象，自己所持有 非自己生成的对象，自己也能持有 不再需要自己持有的对象时释放 非自己持有的对象无法释放  自己生成的对象，自己所持有id obj = [[NSObject alloc] init]; 使用NSObject类的alloc类方法就能自己生成并持有对象。指向生成并持有对象的指针被赋值给变量obj。使用new类方法也能生成并持有对象。 cop">
 <meta name="keywords" content="iOS">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Rain&#39;s Blog">
 <meta property="og:url" content="http://yoursite.com/2018/06/06/内存管理/index.html">
 <meta property="og:site_name" content="Rain&#39;s Blog">
-<meta property="og:description" content="title: tagsdate: 2018-01-20 18:57:48type: “tags” 内存管理引用计数内存管理的思考方式 自己生成的对象，自己所持有 非自己生成的对象，自己也能持有 不再需要自己持有的对象时释放 非自己持有的对象无法释放  自己生成的对象，自己所持有id obj = [[NSObject alloc] init]; 使用NSObject类的alloc类方法就能自己生成并">
+<meta property="og:description" content="内存管理引用计数内存管理的思考方式 自己生成的对象，自己所持有 非自己生成的对象，自己也能持有 不再需要自己持有的对象时释放 非自己持有的对象无法释放  自己生成的对象，自己所持有id obj = [[NSObject alloc] init]; 使用NSObject类的alloc类方法就能自己生成并持有对象。指向生成并持有对象的指针被赋值给变量obj。使用new类方法也能生成并持有对象。 cop">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2018-06-06T09:06:11.486Z">
+<meta property="og:updated_time" content="2018-06-06T09:27:24.914Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Rain&#39;s Blog">
-<meta name="twitter:description" content="title: tagsdate: 2018-01-20 18:57:48type: “tags” 内存管理引用计数内存管理的思考方式 自己生成的对象，自己所持有 非自己生成的对象，自己也能持有 不再需要自己持有的对象时释放 非自己持有的对象无法释放  自己生成的对象，自己所持有id obj = [[NSObject alloc] init]; 使用NSObject类的alloc类方法就能自己生成并">
+<meta name="twitter:description" content="内存管理引用计数内存管理的思考方式 自己生成的对象，自己所持有 非自己生成的对象，自己也能持有 不再需要自己持有的对象时释放 非自己持有的对象无法释放  自己生成的对象，自己所持有id obj = [[NSObject alloc] init]; 使用NSObject类的alloc类方法就能自己生成并持有对象。指向生成并持有对象的指针被赋值给变量obj。使用new类方法也能生成并持有对象。 cop">
 
 
 
@@ -336,8 +336,7 @@
       
 
       
-        <p>title: tags<br>date: 2018-01-20 18:57:48<br>type: “tags”</p>
-<h1 id="内存管理"><a href="#内存管理" class="headerlink" title="内存管理"></a>内存管理</h1><h2 id="引用计数"><a href="#引用计数" class="headerlink" title="引用计数"></a>引用计数</h2><h3 id="内存管理的思考方式"><a href="#内存管理的思考方式" class="headerlink" title="内存管理的思考方式"></a>内存管理的思考方式</h3><ul>
+        <h1 id="内存管理"><a href="#内存管理" class="headerlink" title="内存管理"></a>内存管理</h1><h2 id="引用计数"><a href="#引用计数" class="headerlink" title="引用计数"></a>引用计数</h2><h3 id="内存管理的思考方式"><a href="#内存管理的思考方式" class="headerlink" title="内存管理的思考方式"></a>内存管理的思考方式</h3><ul>
 <li>自己生成的对象，自己所持有</li>
 <li>非自己生成的对象，自己也能持有</li>
 <li>不再需要自己持有的对象时释放</li>
