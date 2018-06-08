@@ -1,0 +1,930 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next mist use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+  
+  
+    
+    
+  <script src="/lib/pace/pace.min.js?v=1.0.2"></script>
+  <link href="/lib/pace/pace-theme-minimal.min.css?v=1.0.2" rel="stylesheet">
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="计算机系统概览," />
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="Rain's Blog" type="application/atom+xml" />
+
+
+
+
+
+
+<meta name="description" content="信息信息 = 位+上下文 编译系统">
+<meta name="keywords" content="计算机系统概览">
+<meta property="og:type" content="article">
+<meta property="og:title" content="计算机系统漫游">
+<meta property="og:url" content="http://yoursite.com/2017/05/30/计算机系统漫游/index.html">
+<meta property="og:site_name" content="Rain&#39;s Blog">
+<meta property="og:description" content="信息信息 = 位+上下文 编译系统">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="http://yoursite.com/2017/05/30/计算机系统漫游/计算机系统漫游/buildSystem.png">
+<meta property="og:image" content="http://yoursite.com/2017/05/30/计算机系统漫游/计算机系统漫游/computerComposition.png">
+<meta property="og:image" content="http://yoursite.com/2017/05/30/计算机系统漫游/计算机系统漫游/storageHierarchy.png">
+<meta property="og:image" content="http://yoursite.com/2017/05/30/计算机系统漫游/计算机系统漫游/systemHierarchy.png">
+<meta property="og:image" content="http://yoursite.com/2017/05/30/计算机系统漫游/计算机系统漫游/systemAbstract.png">
+<meta property="og:image" content="http://yoursite.com/2017/05/30/计算机系统漫游/计算机系统漫游/进程的虚拟地址空间.png">
+<meta property="og:image" content="http://yoursite.com/2017/05/30/计算机系统漫游/计算机系统漫游/多核处理器的组织结构.png">
+<meta property="og:image" content="http://yoursite.com/2017/05/30/计算机系统漫游/计算机系统漫游/计算机系统的一系列抽象.png">
+<meta property="og:updated_time" content="2018-06-08T16:27:19.930Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="计算机系统漫游">
+<meta name="twitter:description" content="信息信息 = 位+上下文 编译系统">
+<meta name="twitter:image" content="http://yoursite.com/2017/05/30/计算机系统漫游/计算机系统漫游/buildSystem.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Mist',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2017/05/30/计算机系统漫游/"/>
+
+
+
+
+
+  <title>计算机系统漫游 | Rain's Blog</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+<div class="headband"></div>
+<a href="https://github.com/NingSun1009" class="github-corner" aria-label="View source on Github"><svg width="80" height="80" viewBox="0 0 250 250" style="fill:#151513; color:#fff; position: absolute; top: 0; border: 0; right: 0;" aria-hidden="true"><path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"></path></svg></a><style>.github-corner:hover .octo-arm{animation:octocat-wave 560ms ease-in-out}@keyframes octocat-wave{0%,100%{transform:rotate(0)}20%,60%{transform:rotate(-25deg)}40%,80%{transform:rotate(10deg)}}@media (max-width:500px){.github-corner:hover .octo-arm{animation:none}.github-corner .octo-arm{animation:octocat-wave 560ms ease-in-out}}</style>
+<!-- 页面点击小红心 -->
+<script type="text/javascript" src="/js/src/clicklove.js"></script>
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Rain's Blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">Ning</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/05/30/计算机系统漫游/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Ning Sun">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="http://img5.imgtn.bdimg.com/it/u=2897479800,1759010781&fm=27&gp=0.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Rain's Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">计算机系统漫游</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-05-30T11:24:36+08:00">
+                2017-05-30
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/计算机系统/" itemprop="url" rel="index">
+                    <span itemprop="name">计算机系统</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+            <span class="post-meta-divider">|</span>
+            <span class="page-pv"><i class="fa fa-file-o"></i> 阅读数
+            <span class="busuanzi-value" id="busuanzi_value_page_pv" ></span>
+            </span>
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h2 id="信息"><a href="#信息" class="headerlink" title="信息"></a>信息</h2><p><strong>信息</strong> = 位+上下文</p>
+<h2 id="编译系统"><a href="#编译系统" class="headerlink" title="编译系统"></a>编译系统</h2><a id="more"></a>
+<p><img src="计算机系统漫游/buildSystem.png" alt="编译系统"></p>
+<ul>
+<li><p>预处理阶段</p>
+<p>  读取头文件中的内容并插入程序文本中，得到另一个c程序，通常以.i为文件扩展名。</p>
+</li>
+<li><p>编译阶段</p>
+<p>  编译器将源.i程序翻译成汇编语言程序，以.s作为文件扩展名。汇编语言为不同的高级语言的不同编译器提供了通用的输出语言。例如，C编译器和Fortran编译器产生的输出文件用的都是一样的汇编语言。</p>
+</li>
+<li><p>汇编阶段</p>
+<p>  汇编器将.翻译成机器语言指令，并打包成可重定位目标程序，并保存在.o文件中。</p>
+</li>
+<li><p>链接阶段</p>
+<p>  链接器负责将程序中用到的.o文件合并到当前的.o文件中，生成可执行目标文件，该文件可以被加载到内存中，由系统执行。</p>
+</li>
+</ul>
+<h2 id="为何要了解编译系统的工作原理？"><a href="#为何要了解编译系统的工作原理？" class="headerlink" title="为何要了解编译系统的工作原理？"></a>为何要了解编译系统的工作原理？</h2><ul>
+<li>优化程序性能</li>
+<li>理解链接时出现的错误</li>
+<li>避免安全漏洞</li>
+</ul>
+<h2 id="处理器读取并解释储存在内存中的指令"><a href="#处理器读取并解释储存在内存中的指令" class="headerlink" title="处理器读取并解释储存在内存中的指令"></a>处理器读取并解释储存在内存中的指令</h2><h3 id="系统的硬件组成"><a href="#系统的硬件组成" class="headerlink" title="系统的硬件组成"></a>系统的硬件组成</h3><p><img src="计算机系统漫游/computerComposition.png" alt="计算机组成"></p>
+<p>1.总线</p>
+<p>贯穿整个系统的一组电子管道。它携带信息字节并负责在各个部件间传递。通常总线被设计成传送定长的字节块，也就是字。每个系统的字的长度不同，有4、8等字节。</p>
+<p>2.I/O设备</p>
+<p>系统与外部世界的联系通道。如键盘、鼠标、显示器、磁盘驱动器（磁盘）。每个i/o设备通过控制器或适配器与i/o总线相连。控制器与适配器的区别在于它们的封装方式。控制器是i/o设备本身或者系统主板上的芯片组。而适配器则是一块插在主板插槽上的卡。</p>
+<p>3.主存</p>
+<p>主存是一个临时存储设备，在处理器执行程序时，用来存放程序和程序处理的数据。从物理上来说，是由一组动态随机存取存储器（DRAM）芯片组成。<br>从逻辑上来说，存储器是一个线性的字节数组，每个字节都有其唯一的地址（数组索引），这些地址是从零开始的。</p>
+<p>4.处理器</p>
+<p>中央处理单元（CPU）,简称处理器，是解释（或执行）存储在主存中指令的引擎。其核心是一个大小为一个字的存储设备（或寄存器），称为程序计数器（PC）。在任何时刻。PC都指向主存中的某条机器语言指令（即含有该条指令的地址）。</p>
+<p>寄存器文件是一个小的存储设备，由一些单个字长的寄存器组成，每个寄存器都有唯一的名字。</p>
+<p>算术/逻辑单元（ALU）计算新的数据和地址值。</p>
+<p>CPU操作：</p>
+<ul>
+<li>加载：从主存复制一个字节或一个字到寄存器，以覆盖寄存器原来的内容。</li>
+<li>存储：从寄存器复制一个字节或者一个字到主存的某个位置，以覆盖这个位置上原来的内容。</li>
+<li>操作：把两个寄存器的内容复制到ALU，ALU对这两个字做算术运算，并将结果存放到一个寄存器中，以覆盖该寄存器中原来的内容。</li>
+<li>跳转：从指令本身中抽取一个字，并将这个字复制到程序计数器（PC）中，以覆盖PC中原来的值。 </li>
+</ul>
+<p>处理器指令集架构和微体系结构：</p>
+<pre><code>指令集架构描述的是每条机器代码指令的效果。
+微体系结构描述的是处理器实际上如何实现的。
+</code></pre><p>程序执行过程：</p>
+<p>1.可执行目标文件中的代码和数据从磁盘复制到主存（利用直接存储器存取技术（DMA）），数据可以不通过处理器而直接从磁盘到达主存。</p>
+<p>2.处理器执行指令，将数据字节从主存复制到寄存器文件，再从寄存器文件中复制到显示设备，最终显示到屏幕上。</p>
+<h2 id="高速缓存的重要性"><a href="#高速缓存的重要性" class="headerlink" title="高速缓存的重要性"></a>高速缓存的重要性</h2><p>1.复制操作话费大量时间</p>
+<p>2.根据机械原理，较大的存储设备要比较小的存储设备运行得慢，而快速设备的造价远高于同类的低速设备。</p>
+<p>3.加快处理器的运行速度比加快主存的运行速度要容易和便宜的多。</p>
+<p><strong>高速缓存存储器(cache memory)</strong></p>
+<p>存放处理器近期可能会需要的信息</p>
+<p>程序具有访问局部区域里的数据和代码的趋势。</p>
+<p>L1和L2高速缓存：位于处理器芯片上，用一种叫做静态随机访问存储器(SRAM)的硬件技术实现的。</p>
+<h2 id="存储设备形成层次结构"><a href="#存储设备形成层次结构" class="headerlink" title="存储设备形成层次结构"></a>存储设备形成层次结构</h2><p><img src="计算机系统漫游/storageHierarchy.png" alt="存储设备层级结构"></p>
+<h2 id="操作系统管理硬件"><a href="#操作系统管理硬件" class="headerlink" title="操作系统管理硬件"></a>操作系统管理硬件</h2><p>计算机系统的分层视图</p>
+<p><img src="计算机系统漫游/systemHierarchy.png" alt="计算机系统的分层视图"></p>
+<p>操作系统的两个基本功能：</p>
+<p>1.防止硬件被失控的应用程序滥用。</p>
+<p>2.向应用程序提供简单一致的机制来控制复杂而又通常大不相同的低级硬件设备。</p>
+<blockquote>
+<p>操作系统通过几个基本的抽象概念（进程、虚拟内存和文件）来实现这两个功能。</p>
+</blockquote>
+<p><img src="计算机系统漫游/systemAbstract.png" alt="操作系统提供的抽象表示"></p>
+<h3 id="进程"><a href="#进程" class="headerlink" title="进程"></a>进程</h3><p><strong>进程</strong>是操作系统对一个正在运行的程序的一种抽象。</p>
+<p>在一个系统上可以同时运行多个进程，而每个进程都好像在独占地使用硬件。</p>
+<p><strong>并发运行</strong>，则是说一个进程的指令和另一个进行的指令是交错执行的。</p>
+<p>操作系统实现这种交错执行的机制称为<strong>上下文切换</strong>。</p>
+<p>操作系统保持跟踪进程运行所需的所有状态信息，这种状态，称为<strong>上下文</strong>。</p>
+<p>从一个进程到另一个进程的转换是由操作系统的<strong>内核</strong>(kernel)管理的，<strong>内核</strong>是操作系统代码常驻主存的部分。当应用程序需要操作系统的某些操作时，它就执行一条特殊的<strong>系统调用</strong>指令，将控制权交给内核。</p>
+<blockquote>
+<p>内核不是一个独立的进程，它是系统管理全部进程所用代码和数据结构的集合。</p>
+</blockquote>
+<h3 id="线程"><a href="#线程" class="headerlink" title="线程"></a>线程</h3><p>一个进程可有多个称为<strong>线程</strong>的执行单元组成。</p>
+<p>每个<strong>线程</strong>都运行在进程的上下文中，并共享同样的代码和全局数据。</p>
+<p>多线程之间比多进程之间更容易共享数据，而且线程一般来说比进程更高效。</p>
+<h3 id="虚拟内存"><a href="#虚拟内存" class="headerlink" title="虚拟内存"></a>虚拟内存</h3><p><strong>虚拟内存</strong>是一个抽象概念，它为每个进程提供了一个假象，即每个进程都在独占地使用主存。每个进程看到的内存都是一致的，称为虚拟地址空间。</p>
+<p>基本思想是把一个进程虚拟内存的内容存储在磁盘上，然后用主存作为磁盘的高速缓存。</p>
+<p><strong>进程的虚拟地址空间:</strong></p>
+<p><img src="计算机系统漫游/进程的虚拟地址空间.png" alt="进程的虚拟地址空间"></p>
+<h3 id="文件"><a href="#文件" class="headerlink" title="文件"></a>文件</h3><p><strong>文件</strong>就是字节序列。每个I/O设备，包括磁盘、键盘、显示器，甚至网络，都可以看成是文件。系统中所有输入输出都是通过使用一小组称为Unix I/O的系统函数调用读写文件来实现的。</p>
+<h2 id="系统之间利用网络通信"><a href="#系统之间利用网络通信" class="headerlink" title="系统之间利用网络通信"></a>系统之间利用网络通信</h2><p>从一个单独的系统来看，网络可视为一个I/O设备，当系统从主存复制一串字节到网络适配器时，数据流经过网络到达另一台机器，而不是比如说到达本地磁盘驱动器。相似地，系统可以读取从其他机器发送来的数据，并把数据复制到自己的主存。</p>
+<h2 id="重要主题"><a href="#重要主题" class="headerlink" title="重要主题"></a>重要主题</h2><h3 id="Amdahl定律"><a href="#Amdahl定律" class="headerlink" title="Amdahl定律"></a>Amdahl定律</h3><p>要想显著加速整个系统，必须提升全系统中相当大的部分的速度。</p>
+<h3 id="并发和并行"><a href="#并发和并行" class="headerlink" title="并发和并行"></a>并发和并行</h3><p><strong>并发（concurrency）</strong></p>
+<p>指一个同时具有多个活动的系统。</p>
+<p><strong>并行（parallelism）</strong></p>
+<p>指用并发来使一个系统运行得更快。</p>
+<p>1.线程级并发</p>
+<p>构建在进程这个抽象之上。</p>
+<p>处理器：</p>
+<ul>
+<li>单处理器</li>
+<li>多处理器（多核&amp;超线程）</li>
+</ul>
+<p><strong>多核</strong></p>
+<p>多核处理器是将多个CPU（称为“核”）集成到一个集成电路芯片上。</p>
+<p><img src="计算机系统漫游/多核处理器的组织结构.png" alt="多核处理器的组织结构"></p>
+<p><strong>超线程</strong></p>
+<p>有时称为同时多线程，是一项允许一个CPU执行多个控制流的技术。它涉及CPU某些硬件有多个备份，比如程序计数器和寄存器文件，而其他的硬件部分只有一份。常规的处理器需要大约20000个时钟周期做不同线程间的切换，而超线程的处理器可以在单个周期的基础上决定要执行哪一个线程。</p>
+<p>2.指令级并行</p>
+<p>在较低的抽象层次上，现代处理器可以同时执行多条指令的属性称为<strong>指令级并行</strong>。</p>
+<p>一个时钟处理一条或多条指令。如果某处理器可以达到比一个周期一条指令更快的执行速率，就称之为<strong>超标量处理器</strong>。</p>
+<p>3.单指令、多数据并行</p>
+<p>在最低层次上，许多现代处理器拥有特殊的硬件，允许一条指令产生多个可以并行执行的操作，这种方式称为单指令、多数据，即SIMD并行。</p>
+<h3 id="计算机系统中抽象的重要性"><a href="#计算机系统中抽象的重要性" class="headerlink" title="计算机系统中抽象的重要性"></a>计算机系统中抽象的重要性</h3><p><img src="计算机系统漫游/计算机系统的一系列抽象.png" alt="计算机系统的一系列抽象"></p>
+<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>计算机系统是由硬件和系统软件组成的，它们共同协作以运行应用程序。计算机内部的信息被表示为一组组的位，它们依据上下文有不同的解释方式。程序被其他程序翻译成不同的形式，开始时是ASCII文本，然后被编译器和链接器翻译成二进制可执行文件。</p>
+<p>处理器读取并解释存放在主存里的二进制指令。因为计算机花费了大量的时间在内存、I/O设备和CPU寄存器之间复制数据，所以将系统中的存储设备划分成层次结构。</p>
+<p>操作系统内核是应用程序和硬件之间的媒介。它提供三个基本的抽象：1）文件是对I/O设备的抽象；2）虚拟内存是对主存和磁盘的抽象；3）进程是处理器、主存和I/O设备的抽象。</p>
+<p>最后，网络提供了计算机系统之间通信的手段。从特殊系统的角度来看，网络就是一种I/O设备。</p>
+
+      
+    </div>
+    
+    
+    
+<div>
+  
+    <div>
+    
+        <div style="text-align:center;color: #ccc;font-size:14px;">-------------本文结束<i class="fa fa-paw"></i>感谢您的阅读-------------</div>
+    
+</div>
+
+  
+</div>
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/计算机系统概览/" rel="tag"><i class="fa fa-tag"></i> 计算机系统概览</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2017/05/26/内存管理/" rel="next" title="内存管理">
+                <i class="fa fa-chevron-left"></i> 内存管理
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image"
+                src="http://img5.imgtn.bdimg.com/it/u=2897479800,1759010781&fm=27&gp=0.jpg"
+                alt="Ning Sun" />
+            
+              <p class="site-author-name" itemprop="name">Ning Sun</p>
+              <p class="site-description motion-element" itemprop="description">To strive, to seek, to find, and not to yield.</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">2</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">2</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">5</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+            <div class="feed-link motion-element">
+              <a href="/atom.xml" rel="alternate">
+                <i class="fa fa-rss"></i>
+                RSS
+              </a>
+            </div>
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/NingSun1009" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-github"></i>GitHub</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="https://www.google.com/" target="_blank" title="Google">
+                      
+                        <i class="fa fa-fw fa-google"></i>Google</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="https://stackoverflow.com/" target="_blank" title="StackOverflow">
+                      
+                        <i class="fa fa-fw fa-stack-overflow"></i>StackOverflow</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#信息"><span class="nav-number">1.</span> <span class="nav-text">信息</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#编译系统"><span class="nav-number">2.</span> <span class="nav-text">编译系统</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#为何要了解编译系统的工作原理？"><span class="nav-number">3.</span> <span class="nav-text">为何要了解编译系统的工作原理？</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#处理器读取并解释储存在内存中的指令"><span class="nav-number">4.</span> <span class="nav-text">处理器读取并解释储存在内存中的指令</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#系统的硬件组成"><span class="nav-number">4.1.</span> <span class="nav-text">系统的硬件组成</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#高速缓存的重要性"><span class="nav-number">5.</span> <span class="nav-text">高速缓存的重要性</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#存储设备形成层次结构"><span class="nav-number">6.</span> <span class="nav-text">存储设备形成层次结构</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#操作系统管理硬件"><span class="nav-number">7.</span> <span class="nav-text">操作系统管理硬件</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#进程"><span class="nav-number">7.1.</span> <span class="nav-text">进程</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#线程"><span class="nav-number">7.2.</span> <span class="nav-text">线程</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#虚拟内存"><span class="nav-number">7.3.</span> <span class="nav-text">虚拟内存</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#文件"><span class="nav-number">7.4.</span> <span class="nav-text">文件</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#系统之间利用网络通信"><span class="nav-number">8.</span> <span class="nav-text">系统之间利用网络通信</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#重要主题"><span class="nav-number">9.</span> <span class="nav-text">重要主题</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Amdahl定律"><span class="nav-number">9.1.</span> <span class="nav-text">Amdahl定律</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#并发和并行"><span class="nav-number">9.2.</span> <span class="nav-text">并发和并行</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#计算机系统中抽象的重要性"><span class="nav-number">9.3.</span> <span class="nav-text">计算机系统中抽象的重要性</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#总结"><span class="nav-number">10.</span> <span class="nav-text">总结</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+<div class="copyright">&copy; <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Ning Sun</span>
+
+  
+</div>
+<!--
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Mist</a> v5.1.4</div>
+
+
+
+-->
+
+        
+<div class="busuanzi-count">
+  <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+  
+    <span class="site-uv">
+      <i class="fa fa-user"></i> 访问人数
+      <span class="busuanzi-value" id="busuanzi_value_site_uv"></span>
+      人
+    </span>
+  
+
+  
+    <span class="site-pv">
+      <i class="fa fa-eye"></i> 总访问量
+      <span class="busuanzi-value" id="busuanzi_value_site_pv"></span>
+      次
+    </span>
+  
+</div>
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
