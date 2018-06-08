@@ -88,18 +88,18 @@
 
 
 
-<meta name="description" content="引用计数内存管理的思考方式 自己生成的对象，自己所持有 非自己生成的对象，自己也能持有 不再需要自己持有的对象时释放 非自己持有的对象无法释放">
+<meta name="description" content="引用计数内存管理的思考方式">
 <meta name="keywords" content="Objective-C,iOS,内存管理">
 <meta property="og:type" content="article">
 <meta property="og:title" content="内存管理">
 <meta property="og:url" content="http://yoursite.com/2017/05/26/内存管理/index.html">
 <meta property="og:site_name" content="Rain&#39;s Blog">
-<meta property="og:description" content="引用计数内存管理的思考方式 自己生成的对象，自己所持有 非自己生成的对象，自己也能持有 不再需要自己持有的对象时释放 非自己持有的对象无法释放">
+<meta property="og:description" content="引用计数内存管理的思考方式">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2018-06-06T11:41:47.820Z">
+<meta property="og:updated_time" content="2018-06-08T06:37:01.441Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="内存管理">
-<meta name="twitter:description" content="引用计数内存管理的思考方式 自己生成的对象，自己所持有 非自己生成的对象，自己也能持有 不再需要自己持有的对象时释放 非自己持有的对象无法释放">
+<meta name="twitter:description" content="引用计数内存管理的思考方式">
 
 
 
@@ -370,13 +370,13 @@
       
 
       
-        <h2 id="引用计数"><a href="#引用计数" class="headerlink" title="引用计数"></a>引用计数</h2><h3 id="内存管理的思考方式"><a href="#内存管理的思考方式" class="headerlink" title="内存管理的思考方式"></a>内存管理的思考方式</h3><ul>
+        <h2 id="引用计数"><a href="#引用计数" class="headerlink" title="引用计数"></a>引用计数</h2><h3 id="内存管理的思考方式"><a href="#内存管理的思考方式" class="headerlink" title="内存管理的思考方式"></a>内存管理的思考方式</h3><a id="more"></a>
+<ul>
 <li>自己生成的对象，自己所持有</li>
 <li>非自己生成的对象，自己也能持有</li>
 <li>不再需要自己持有的对象时释放</li>
 <li>非自己持有的对象无法释放</li>
 </ul>
-<a id="more"></a>
 <h4 id="自己生成的对象，自己所持有"><a href="#自己生成的对象，自己所持有" class="headerlink" title="自己生成的对象，自己所持有"></a>自己生成的对象，自己所持有</h4><p><code>id obj = [[NSObject alloc] init];</code></p>
 <p>使用NSObject类的alloc类方法就能自己生成并持有对象。指向生成并持有对象的指针被赋值给变量obj。使用new类方法也能生成并持有对象。</p>
 <p>copy方法利用基于NSCopying方法约定，由各类实现的copyWithZone:方法生成并持有对象的副本。</p>
@@ -524,6 +524,22 @@
       
 
       
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2017/05/26/深入理解计算机系统/" rel="next" title="计算机系统知识">
+                <i class="fa fa-chevron-left"></i> 计算机系统知识
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
 
       
       
@@ -600,7 +616,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">1</span>
+                  <span class="site-state-item-count">2</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -611,7 +627,7 @@
               
               <div class="site-state-item site-state-categories">
                 <a href="/categories/index.html">
-                  <span class="site-state-item-count">1</span>
+                  <span class="site-state-item-count">2</span>
                   <span class="site-state-item-name">分类</span>
                 </a>
               </div>
@@ -622,7 +638,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">3</span>
+                  <span class="site-state-item-count">4</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>
