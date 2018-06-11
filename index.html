@@ -368,20 +368,16 @@
 
       
         
-          
-            <blockquote>
+          <blockquote>
 <p>起因：crash平台发现一个崩溃：</p>
-<p>*** Terminating app due to uncaught exception ‘NSUnknownKeyException’, reason: ‘[<uialertaction 0x1706b0440=""> setValue:forUndefinedKey:]: this class is not key value coding-compliant for the key titleTextColor.<br>UserInfo:{<br>    NSTargetObjectUserInfoKey = “&lt;UIAlertAction: 0x1706b0440 Title = \”\U786e\U5b9a\” Descriptive = \”(null)\” Image = 0x0&gt;”;<br>    NSUnknownUserInfoKey = titleTextColor;<br>}’</uialertaction></p>
-<p>崩溃发生在系统版本为iOS8.1.3和8.2的设备上。</p>
-</blockquote>
-<p><strong>崩溃代码</strong></p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">//okAction为UIAlertAction实例</span><br><span class="line">[okAction setValue:RGBCOLOR(0xff, 0x78, 0x33) forKey:@&quot;titleTextColor&quot;];</span><br></pre></td></tr></table></figure>
-<p><strong>崩溃原因</strong></p>
-<p>UIAlertAction在iOS8.3以下，没有_titleTextColor这个私有成员变量。</p>
-<p><strong>总结</strong></p>
-<p>使用kvc要判断key是否存在。</p>
-
-          
+<p>*** Terminating app due to uncaught exception ‘NSUnknownKeyException’, reason: ‘[<uialertaction 0x1706b0440=""> setValue:forUndefinedKey:]: this class is not key value coding-compliant for the key titleTextColor.<br></uialertaction></p></blockquote>
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2018/06/11/KVC修改UIAlertAction颜色遇到的坑/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
         
       
     </div>
