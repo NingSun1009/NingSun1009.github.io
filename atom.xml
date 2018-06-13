@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://yoursite.com/"/>
-  <updated>2018-06-11T07:00:56.927Z</updated>
+  <updated>2018-06-12T02:53:02.867Z</updated>
   <id>http://yoursite.com/</id>
   
   <author>
@@ -15,6 +15,35 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>iOS12权限问题导致崩溃</title>
+    <link href="http://yoursite.com/2018/06/12/iOS12%E6%9D%83%E9%99%90%E9%97%AE%E9%A2%98%E5%AF%BC%E8%87%B4%E5%B4%A9%E6%BA%83/"/>
+    <id>http://yoursite.com/2018/06/12/iOS12权限问题导致崩溃/</id>
+    <published>2018-06-12T02:20:48.000Z</published>
+    <updated>2018-06-12T02:53:02.867Z</updated>
+    
+    <content type="html"><![CDATA[<blockquote><p>起因：crash平台发现大量iOS12的崩溃。</p></blockquote><h2 id="崩溃详情"><a href="#崩溃详情" class="headerlink" title="崩溃详情"></a>崩溃详情</h2><a id="more"></a><p><img src="/2018/06/12/iOS12权限问题导致崩溃/crash.png" alt="crash"></p><h2 id="初步分析"><a href="#初步分析" class="headerlink" title="初步分析"></a>初步分析</h2><p>初步估计是权限问题，但是查询<a href="https://developer.apple.com/library/archive/documentation/General/Reference/InfoPlistKeyReference/Articles/CocoaKeys.html" target="_blank" rel="noopener">苹果官方文档</a>，发现iOS12只是增加了健康相关的权限。</p><h2 id="崩溃原因"><a href="#崩溃原因" class="headerlink" title="崩溃原因"></a>崩溃原因</h2><p>找了很久没有找到原因，直到在crash详情里找到这样一段文字。</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">&quot;This app has crashed because it attempted to access</span><br><span class="line">privacy-sensitive data without a usage description.</span><br><span class="line">The app&apos;s Info.plist must contain an</span><br><span class="line">NSMicrophoneUsageDescription key with a string value</span><br><span class="line">explaining to the user how the app uses this data.&quot;</span><br></pre></td></tr></table></figure><h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>然而项目中并没有用到麦克风相关的功能，而且其他系统版本也没有报这个崩溃，或许是iOS12的bug吧。</p>]]></content>
+    
+    <summary type="html">
+    
+      &lt;blockquote&gt;
+&lt;p&gt;起因：crash平台发现大量iOS12的崩溃。&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;h2 id=&quot;崩溃详情&quot;&gt;&lt;a href=&quot;#崩溃详情&quot; class=&quot;headerlink&quot; title=&quot;崩溃详情&quot;&gt;&lt;/a&gt;崩溃详情&lt;/h2&gt;
+    
+    </summary>
+    
+      <category term="iOS" scheme="http://yoursite.com/categories/iOS/"/>
+    
+    
+      <category term="Objective-C" scheme="http://yoursite.com/tags/Objective-C/"/>
+    
+      <category term="iOS" scheme="http://yoursite.com/tags/iOS/"/>
+    
+      <category term="crash" scheme="http://yoursite.com/tags/crash/"/>
+    
+  </entry>
   
   <entry>
     <title>KVC修改UIAlertAction颜色遇到的坑</title>
